@@ -11,5 +11,5 @@ public interface IMovieService {
     public void save(Movie movie);
     public void delete(int id);
     public Optional<Movie> findById(int id);
-//    public Page<Movie> findByName(Pageable pageable, String name);
+    public Page<Movie> findByName(Pageable pageable, String name);
 }

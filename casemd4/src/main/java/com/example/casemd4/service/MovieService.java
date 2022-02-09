@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-
+@Service
 public class MovieService implements IMovieService{
 
     @Autowired
@@ -35,8 +35,8 @@ public class MovieService implements IMovieService{
         return movieRepo.findById(id);
     }
 
-//    @Override
-//    public Page<Movie> findByName(Pageable pageable, String name) {
-//        return (Page<Movie>) movieRepo.findAllByNameContaining(pageable, name);
-//    }
+    @Override
+    public Page<Movie> findByName(Pageable pageable, String name) {
+        return (Page<Movie>) movieRepo.findAllByNameContaining(pageable, name);
+    }
 }
