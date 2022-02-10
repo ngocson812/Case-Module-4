@@ -114,26 +114,32 @@ function searchName() {
         type: "GET",
         url: "http://localhost:8080/movie/search/" + name,
         //xử lý khi thành công
-        success: function (data) {
+        success: function (da) {
             let str = "";
+            let data = da.content;
+            console.log(data.category);
+            console.log(da);
             for (let i = 0; i < data.length; i++) {
                 str += "<tr>"
                 str += `<td>${data[i].id}</td>`
                 str += `<td>${data[i].name}</td>`
                 str += `<td>${data[i].time}</td>`
                 str += `<td>${data[i].description}</td>`
-                str += `<td>${data[i].img}</td>`
-                str += `<td>${data[i].video}</td>`
+                str += `<td>< img src=${data[i].img}></td>`
+                str += `<td>< video src=${data[i].video}></td>`
                 str += `<td>${data[i].dateUp}</td>`
                 str += `<td>${data[i].likeM}</td>`
                 str += `<td>${data[i].viewM}</td>`
-                str += `<td>${data[i].category.nameCategory}</td>`
+                if (data[i].category !== null) {
+                    str += `<td>${data[i].category.nameCategory}</td>`
+                } else {
+                    str += "<td></td>"
+                }
                 str += `<td><button onclick="showEdit(${data[i].id})" type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">Edit</button></td>`
                 str += `<td><button onclick="showDelete(${data[i].id})" type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete">Delete</button></td>`
                 str += "</tr>"
             }
             document.getElementById("tbody").innerHTML = str;
-            console.log(data)
         },
         error: function (err) {
             console.log(err);
@@ -219,7 +225,7 @@ function edit() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: "http://localhost:8080/movie",
+        url: "http://localhost:8080/movie/" + id,
         data: JSON.stringify(movie),
         //xử lý khi thành công
         success: function (data) {
